@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\HelperController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,13 +27,9 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
-Route::get('/run-migrations', function () {
-    return Artisan::call('migrate', ["--force" => true ]);
-});
+Route::get('run-migrations', [HelperController::class, 'run_migrations']);
 
-Route::get('/run-db-seed', function () {
-    return Artisan::call('db:seed');
-});
+Route::get('run-db-seed', [HelperController::class, 'run_db_seed']);
 
 Route::get('articles',[ArticleController::class, 'index']);
 Route::get('articles/{id}', [ArticleController::class, 'show']);
