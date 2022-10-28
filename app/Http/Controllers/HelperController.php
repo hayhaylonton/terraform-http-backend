@@ -19,7 +19,25 @@ class HelperController extends Controller
      */
     public function run_migrations()
     {
-        return Artisan::call('migrate', ["--force" => true ]);
+        Artisan::call('migrate', ["--force" => true]);
+        return dd(Artisan::output());
+    }
+
+    /**
+     * @OA\Get(
+     *   tags={"Helper"},
+     *   path="/api/run-migrations-refresh",
+     *   summary="Summary",
+     *   @OA\Response(response=200, description="OK"),
+     *   @OA\Response(response=401, description="Unauthorized"),
+     *   @OA\Response(response=404, description="Not Found")
+     * )
+     */
+    public function run_migrations_refresh()
+    {
+        Artisan::call('migrate:refresh', ["--force" => true]);
+        return dd(Artisan::output());
+
     }
 
     /**
@@ -34,6 +52,7 @@ class HelperController extends Controller
      */
     public function run_db_seed()
     {
-        return Artisan::call('db:seed');
+        Artisan::call('db:seed');
+        return dd(Artisan::output());
     }
 }

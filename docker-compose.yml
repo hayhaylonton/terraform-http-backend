@@ -26,8 +26,8 @@ services:
           /usr/bin/php -d variables_order=EGPCS /var/www/html/artisan serve --host=0.0.0.0 --port=80
     mysql:
         image: 'mysql:5.7'
-        ports:
-            - '${FORWARD_DB_PORT:-3306}:3306'
+        # ports:
+        #     - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
             MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ROOT_HOST: "%"
