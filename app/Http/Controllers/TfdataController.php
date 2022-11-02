@@ -111,8 +111,19 @@ class TfdataController extends Controller
     public function purged(Request $request)
     {
         Log::info("purged");
-        Log::info($request);
-        Log::info(Auth::user());
-        return response(null, 404);
+        $row = Tfdata::Where([
+            ["user_id", "=", Auth::user()->getAuthIdentifier()]
+        ])->first();
+
+        if ($row <> null) {
+            $row->delete();
+            return response(null, 200);
+        }
+
+
+        $row = new Tfdata;
+        $row->user_id = Auth::user()->getAuthIdentifier();
+        $row->save();
+        return response(null, 200);
     }
 }
